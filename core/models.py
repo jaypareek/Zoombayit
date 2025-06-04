@@ -16,6 +16,8 @@ class Classes(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     delivery_date = models.DateField()
+    cutoff_date = models.DateField()
+    allow_waitlist = models.BooleanField(default=False)
     instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='instructor')
     activities = models.ManyToManyField(Activities)
     available_slots = models.IntegerField()
@@ -28,3 +30,20 @@ class Classes(models.Model):
 
     def __str__(self):
         return self.full_name
+
+class Bookings(models.Model):
+    email = models.EmailField()
+    classes = models.ForeignKey(Classes, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='booking_created_by')
+    updated_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='booking_updated_by')
+    is_active = models.BooleanField(default=True)
+    is_waitlisted = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (('email', 'classes'),)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.class_name.name}"
+    
