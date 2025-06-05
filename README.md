@@ -52,35 +52,36 @@ Booking API for a fictional fitness studio using Python. The goal is to evaluate
    ```bash
    python manage.py runserver
    ```
-   The API will be available at http://127.0.0.1:8000/api/v1.0/ or http://localhost:8000/api/v1.0/
+   The API will be available at http://127.0.0.1:8000/core/api/v1.0/ or http://localhost:8000/core/api/v1.0/
 
 ## API Endpoints
 
 ### Base URL
 ```
-/api/v1.0/
+/core/api/v1.0/
 ```
 
 ### Activities
-- **GET /api/v1.0/activities/** - List all activities
-- **GET /api/v1.0/activities/{id}/** - Get activity details
-- **POST /api/v1.0/activities/** - Create a new activity
-- **PUT /api/v1.0/activities/{id}/** - Update an activity
-- **DELETE /api/v1.0/activities/{id}/** - Delete an activity
+- **GET /core/api/v1.0/activities/** - List all activities
+- **GET /core/api/v1.0/activities/{id}/** - Get activity details
+- **POST /core/api/v1.0/activities/** - Create a new activity
+- **PUT /core/api/v1.0/activities/{id}/** - Update an activity
+- **DELETE /core/api/v1.0/activities/{id}/** - Delete an activity
 
 ### Classes
-- **GET /api/v1.0/classes/** - List all classes
-- **GET /api/v1.0/classes/{id}/** - Get class details
-- **POST /api/v1.0/classes/** - Create a new class
-- **PUT /api/v1.0/classes/{id}/** - Update a class
-- **DELETE /api/v1.0/classes/{id}/** - Delete a class
+- **GET /core/api/v1.0/classes/** - List all classes
+- **POST /core/api/v1.0/classes/?tz={Asia/Kolkata}** - List Class by Given TimeZome
+- **GET /core/api/v1.0/classes/{id}/** - Get class details
+- **POST /core/api/v1.0/classes/** - Create a new class
+- **PUT /core/api/v1.0/classes/{id}/** - Update a class
+- **DELETE /core/api/v1.0/classes/{id}/** - Delete a class
 
 ### Bookings
-- **GET /api/v1.0/bookings/** - List all bookings
-- **GET /api/v1.0/bookings/?email={email}** - Get bookings for a specific email
+- **GET /core/api/v1.0/bookings/** - List all bookings
+- **GET /core/api/v1.0/bookings/?email={email}** - Get bookings for a specific email
 
 ### Book
-- **POST /api/v1.0/book/** - Create a new booking
+- **POST /core/api/v1.0/book/** - Create a new booking
 
 ## Sample API Requests and Responses
 
