@@ -1,0 +1,4 @@
+name,description,delivery_date,cutoff_date,allow_waitlist,instructor,activities,available_slots
+Yoga Everyday,101 of yoga,2025-07-01 09:00:00,2025-06-25 17:00:00,1,1,5,20
+Advanced Yoga,Yoga test Description,2025-07-15 14:30:00,2025-07-05 12:00:00,0,1,6,15
+Zoomba all Day,Zoomba all Day,2025-08-01 10:00:00,2025-07-20 18:00:00,1,1,7,10
