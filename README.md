@@ -2,6 +2,58 @@
 
 Booking API for a fictional fitness studio using Python. The goal is to evaluate your coding skills, design thinking, and understanding of backend development principles.
 
+## Installation and Setup
+
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+### Setup Steps
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jaypareek/Zoombayit.git
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   # Windows
+   python -m venv zoo
+   & '.\zoo\Scripts\Activate.ps1'
+
+   # macOS/Linux
+   python3 -m venv zoo
+   source zoo/bin/activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   cd Zoombayit
+   pip install -r requirements.txt
+   ```
+
+4. **Run migrations**
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+
+5. **Create superuser and seed data**
+   ```bash
+   python manage.py organizer
+   ```
+   This command will:
+   - Create a superuser (username: admin, password: admin)
+   - Import activities from file/organizer/activities.csv
+   - Import classes from file/organizer/classes.csv
+   - Create sample bookings from file/organizer/bookings.csv
+
+6. **Run the development server**
+   ```bash
+   python manage.py runserver
+   ```
+   The API will be available at http://127.0.0.1:8000/api/v1.0/ or http://localhost:8000/api/v1.0/
+
 ## API Endpoints
 
 ### Base URL
