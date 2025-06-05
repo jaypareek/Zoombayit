@@ -1,0 +1,6 @@
+This Directory will include logs
+
+--| django.log
+    include all the logs by django INFo and Up
+  | core.log
+    core app logs only INFO and up
