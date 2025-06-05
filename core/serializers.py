@@ -54,6 +54,7 @@ class ActivitiesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Activities
         fields = '__all__'
+
 class BookingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookings
@@ -64,3 +65,21 @@ class BookSerializer(serializers.ModelSerializer):
         model = Bookings
         fields = '__all__'
         read_only_fields = ('is_active','is_waitlisted','created_by', 'updated_by')
+
+    def validate(self, data):
+        classes = data['classes']
+
+        if classes.available_slots <= 0 and not classes.allow_waitlist:
+            raise serializers.ValidationError("No available slots and class does not allow waitlist")
+        return data
+    
+    # preventing over booking and waitlisting if allowed
+    def create(self, validated_data):
+        classes = validated_data['classes']
+        if classes.available_slots > 0:
+            classes.available_slots -= 1
+            classes.save()
+            validated_data['is_waitlisted'] = False
+        else:
+            validated_data['is_waitlisted'] = True 
+        return super().create(validated_data)

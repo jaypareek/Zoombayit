@@ -17,6 +17,8 @@ import re
 # logger
 logger = logging.getLogger(__name__)
 
+# email validation for validating user inputs in booking
+
 def is_valid_email_regex(email):
     pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
     return re.match(pattern, email) is not None
@@ -24,14 +26,39 @@ def is_valid_email_regex(email):
 class ClassesViewSet(viewsets.ModelViewSet):
     queryset = Classes.objects.all()
     serializer_class = ClassesSerializer
+    
     def get_serializer_context(self):
         context = super().get_serializer_context()
         context['request'] = self.request
         return context
     
+    def create(self, request, *args, **kwargs):
+        logger.info(f"POST request data: {request.data}")
+        
+        response = super().create(request, *args, **kwargs)
+        
+        if response.status_code == status.HTTP_201_CREATED:
+            logger.info(f"Created new class: {response.data}")
+        else:
+            logger.warning(f"Failed to create class: {response.data}")
+        
+        return response
+    
 class ActivitiesViewSet(viewsets.ModelViewSet):
     queryset = Activities.objects.all()
     serializer_class = ActivitiesSerializer
+
+    def create(self, request, *args, **kwargs):
+        logger.info(f"POST request data: {request.data}")
+        
+        response = super().create(request, *args, **kwargs)
+        
+        if response.status_code == status.HTTP_201_CREATED:
+            logger.info(f"Created new activity: {response.data}")
+        else:
+            logger.warning(f"Failed to create activity: {response.data}")
+        
+        return response
     
 class BookingsViewSet(viewsets.ModelViewSet):
     queryset = Bookings.objects.all()
@@ -44,7 +71,9 @@ class BookingsViewSet(viewsets.ModelViewSet):
         if email:
             try:
                 validate_email(email)
+                logger.info(f"validated {email}")
             except ValidationError:
+                logger.error(f"Invalid email Address {email}")
                 return Response(
                     {'error': 'Invalid email address.'},
                     status=status.HTTP_400_BAD_REQUEST
@@ -74,12 +103,25 @@ class BookingsViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         raise MethodNotAllowed("DELETE")
 
+# as per requirement only post with client email, name and class id 
 
 class BookViewSet(viewsets.ModelViewSet):
     queryset = Classes.objects.all()
     serializer_class = BookSerializer
     http_method_names = ['post']
 
+    def create(self, request, *args, **kwargs):
+        logger.info(f"POST request data: {request.data}")
+        
+        response = super().create(request, *args, **kwargs)
+        
+        if response.status_code == status.HTTP_201_CREATED:
+            logger.info(f"Created new booking: {response.data}")
+        else:
+            logger.warning(f"Failed to create booking: {response.data}")
+        
+        return response
+    
     def perform_create(self, serializer):
         user = User.objects.filter(is_superuser=True).first()
         serializer.save(
