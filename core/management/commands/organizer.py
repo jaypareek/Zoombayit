@@ -18,10 +18,10 @@ def create_super_user():
     User = get_user_model()
     if not User.objects.filter(is_superuser=True).exists():
         try:
-            call_command('createsuperuser', interactive=False, username='admin', email='admin@zoo.com', password='admin')
-            logger.info('superuser created successfully using organizer')
+            User.objects.create_superuser(username='admin', email='admin@zoo.com', password='admin')
+            logger.info('Superuser created successfully using organizer')
         except Exception as e:
-            logger.error(f'error creating superuser: {e}')
+            logger.error(f'Error creating superuser: {e}')
         return True
     else:
         return False
