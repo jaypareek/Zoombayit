@@ -64,17 +64,13 @@ Booking API for a fictional fitness studio using Python. The goal is to evaluate
 ### Activities
 - **GET /core/api/v1.0/activities/** - List all activities
 - **GET /core/api/v1.0/activities/{id}/** - Get activity details
-- **POST /core/api/v1.0/activities/** - Create a new activity
-- **PUT /core/api/v1.0/activities/{id}/** - Update an activity
-- **DELETE /core/api/v1.0/activities/{id}/** - Delete an activity
+- **POST /core/api/v1.0/activities/**- Create a new activity
 
 ### Classes
 - **GET /core/api/v1.0/classes/** - List all classes
 - **POST /core/api/v1.0/classes/?tz={Asia/Kolkata}** - List Class by Given TimeZome
 - **GET /core/api/v1.0/classes/{id}/** - Get class details
 - **POST /core/api/v1.0/classes/** - Create a new class
-- **PUT /core/api/v1.0/classes/{id}/** - Update a class
-- **DELETE /core/api/v1.0/classes/{id}/** - Delete a class
 
 ### Bookings
 - **GET /core/api/v1.0/bookings/** - List all bookings
@@ -88,7 +84,7 @@ Booking API for a fictional fitness studio using Python. The goal is to evaluate
 ### Create a New Activity
 **Request:**
 ```json
-POST /api/v1.0/activities/
+POST core/api/v1.0/activities/
 {
   "name": "Yoga",
   "description": "Beginner friendly yoga class",
@@ -113,7 +109,7 @@ POST /api/v1.0/activities/
 ### Create a New Class
 **Request:**
 ```json
-POST /api/v1.0/classes/
+POST core/api/v1.0/classes/
 {
   "name": "Morning Yoga",
   "description": "Start your day with energizing yoga",
@@ -152,11 +148,40 @@ POST /api/v1.0/classes/
   "updated_by": 1
 }
 ```
+### List All Classes by Timezone
+**Request:**
+```json
+GET core/api/v1.0/classes/?tz=Asia/Kolkata
+```
+**Response:**
+```json
+{
+    "id": 1,
+    "delivery_date_local": "2025-07-01T14:30:00+05:30",
+    "cutoff_date_local": "2025-06-25T22:30:00+05:30",
+    "server_timezone": "UTC",
+    "server_time": "2025-06-06T04:24:55.202863+00:00",
+    "name": "Yoga Everyday",
+    "description": "101 of yoga",
+    "delivery_date": "2025-07-01T09:00:00Z",
+    "cutoff_date": "2025-06-25T17:00:00Z",
+    "allow_waitlist": true,
+    "available_slots": 16,
+    "is_active": true,
+    "created_at": "2025-06-05T19:48:24.939281Z",
+    "updated_at": "2025-06-05T19:56:32.009034Z",
+    "instructor": 1,
+    "created_by": 1,
+    "updated_by": 1,
+    "activities": []
+}
+
+```
 
 ### Create a New Booking
 **Request:**
 ```json
-POST /api/v1.0/book/
+POST core/api/v1.0/book/
 {
   "client_name": "John Doe",
   "client_email": "john.doe@example.com",
